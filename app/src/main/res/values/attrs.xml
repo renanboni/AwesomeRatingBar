@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AwesomeRatingBar">
+        <attr name="stepSize" format="float"/>
+        <attr name="starSize" format="dimension"/>
+        <attr name="maxStars" format="integer"/>
+        <attr name="progressedStars" format="integer"/>
+        <attr name="filled" format="reference"/>
+        <attr name="outlined" format="reference"/>
+        <attr name="spaceBetween" format="dimension"/>
+    </declare-styleable>
+</resources>
