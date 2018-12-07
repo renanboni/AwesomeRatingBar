@@ -67,7 +67,6 @@ public class AwesomeRatingBar extends View {
         int width = maxStars * filledStar.getBounds().width() + (spaceBetween * (maxStars - 1));
         int height = filledStar.getBounds().height();
 
-
         setMeasuredDimension(width, height);
     }
 
@@ -134,8 +133,18 @@ public class AwesomeRatingBar extends View {
             float x = (int) event.getX();
 
             if( x >= 0 && x < getWidth() ) {
-                int starClicked = (int) (x / starSize);
-                progressedStars = starClicked + 1;
+                int a = 0;
+                int b = starSize;
+
+                for(int i = 0; i < maxStars; i++) {
+                    if(x > a && x < b) {
+                        progressedStars = i + 1;
+                        break;
+                    }
+
+                    a += (starSize + spaceBetween);
+                    b = a + starSize;
+                }
             }
 
             invalidate();

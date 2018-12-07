@@ -14,9 +14,9 @@
             android:layout_height="wrap_content"
             app:maxStars="5"
             android:layout_centerInParent="true"
-            app:spaceBetween="20dp"
+            app:spaceBetween="40dp"
             app:starSize="50dp"
-            app:progressedStars="4"
+            app:progressedStars="5"
             app:filled="@drawable/star_filled"/>
 
 </RelativeLayout>
