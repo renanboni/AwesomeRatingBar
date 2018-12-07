@@ -18,6 +18,7 @@ public class AwesomeRatingBar extends View {
     private int maxStars;
     private int spaceBetween;
     private int progressedStars;
+    private boolean isIndicator;
 
     public AwesomeRatingBar(Context context) {
         this(context, null);
@@ -33,6 +34,7 @@ public class AwesomeRatingBar extends View {
             maxStars = typedArray.getInt(R.styleable.AwesomeRatingBar_maxStars, 0);
             spaceBetween = typedArray.getDimensionPixelSize(R.styleable.AwesomeRatingBar_spaceBetween, 0);
             progressedStars = typedArray.getInt(R.styleable.AwesomeRatingBar_progressedStars, 0);
+            isIndicator = typedArray.getBoolean(R.styleable.AwesomeRatingBar_indicator, false);
 
             typedArray.recycle();
         }
@@ -61,6 +63,11 @@ public class AwesomeRatingBar extends View {
         }
     }
 
+    /*
+        In this case, match_parent and wrap_content won't make difference,
+            always will be set wrap_content for the width,
+            for the height, it should be always wrap content
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
@@ -125,28 +132,55 @@ public class AwesomeRatingBar extends View {
         }
     }
 
+    /*
+        return how many stars was clicked
+     */
+    public int getRating() {
+        return progressedStars;
+    }
 
+    /*
+        Set if the stars are indicator or not (in other words, if they're clickable or not)
+     */
+    public void setIndicator(boolean isIndicator) {
+        this.isIndicator = isIndicator;
+    }
+
+    public boolean isIndicator() {
+        return isIndicator;
+    }
+
+    /*
+        Draw star on screen (if not indicador) accordly on how many stars was touched,
+            Maybe (actually, I'm pretty sure) is possible to improve the code below
+     */
     private final OnTouchListener onTouchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            float x = (int) event.getX();
+            if(!isIndicator) {
+                float x = (int) event.getX();
 
-            if( x >= 0 && x < getWidth() ) {
-                int a = 0;
-                int b = starSize;
+                if( x >= 0 && x < getWidth() ) {
+                    int a = 0;
+                    int b = starSize;
 
-                for(int i = 0; i < maxStars; i++) {
-                    if(x > a && x < b) {
-                        progressedStars = i + 1;
-                        break;
+                    for(int i = 0; i < maxStars; i++) {
+                        if(x > a && x < b) {
+                            progressedStars = i + 1;
+                            performClick();
+                            break;
+                        }
+
+                        a += (starSize + spaceBetween);
+                        b = a + starSize;
                     }
-
-                    a += (starSize + spaceBetween);
-                    b = a + starSize;
                 }
             }
 
+            /*
+                Mark the view to be re-draw in a close future
+             */
             invalidate();
             return true;
         }

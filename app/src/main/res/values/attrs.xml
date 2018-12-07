@@ -8,5 +8,6 @@
         <attr name="filled" format="reference"/>
         <attr name="outlined" format="reference"/>
         <attr name="spaceBetween" format="dimension"/>
+        <attr name="indicator" format="boolean"/>
     </declare-styleable>
 </resources>

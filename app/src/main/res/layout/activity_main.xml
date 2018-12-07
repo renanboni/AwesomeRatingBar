@@ -12,10 +12,11 @@
             android:id="@+id/ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:maxStars="5"
+            app:maxStars="6"
             android:layout_centerInParent="true"
-            app:spaceBetween="40dp"
+            app:spaceBetween="10dp"
             app:starSize="50dp"
+            app:indicator="false"
             app:progressedStars="5"
             app:filled="@drawable/star_filled"/>
 
