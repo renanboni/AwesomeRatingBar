@@ -14,11 +14,12 @@ public class AwesomeRatingBar extends View {
     private Drawable filledStar = getResources().getDrawable(R.drawable.star_filled);
     private Drawable emptyStar = getResources().getDrawable(R.drawable.star_outlined);
 
-    private int starSize;
-    private int maxStars;
-    private int spaceBetween;
-    private int progressedStars;
-    private boolean isIndicator;
+    // Default values
+    private int starSize = 32;
+    private int maxStars = 5;
+    private int spaceBetween = 0;
+    private int progressedStars = 0;
+    private boolean isIndicator = false;
 
     public AwesomeRatingBar(Context context) {
         this(context, null);
@@ -30,11 +31,22 @@ public class AwesomeRatingBar extends View {
         if(attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AwesomeRatingBar);
 
-            starSize = typedArray.getDimensionPixelSize(R.styleable.AwesomeRatingBar_starSize, 0);
-            maxStars = typedArray.getInt(R.styleable.AwesomeRatingBar_maxStars, 0);
-            spaceBetween = typedArray.getDimensionPixelSize(R.styleable.AwesomeRatingBar_spaceBetween, 0);
-            progressedStars = typedArray.getInt(R.styleable.AwesomeRatingBar_progressedStars, 0);
-            isIndicator = typedArray.getBoolean(R.styleable.AwesomeRatingBar_indicator, false);
+            starSize = typedArray.getDimensionPixelSize(R.styleable.AwesomeRatingBar_starSize, starSize);
+            maxStars = typedArray.getInt(R.styleable.AwesomeRatingBar_maxStars, maxStars);
+            spaceBetween = typedArray.getDimensionPixelSize(R.styleable.AwesomeRatingBar_spaceBetween, spaceBetween);
+            progressedStars = typedArray.getInt(R.styleable.AwesomeRatingBar_progressedStars, progressedStars);
+            isIndicator = typedArray.getBoolean(R.styleable.AwesomeRatingBar_indicator, isIndicator);
+
+            Drawable filled = typedArray.getDrawable(R.styleable.AwesomeRatingBar_filled);
+            Drawable outlined = typedArray.getDrawable(R.styleable.AwesomeRatingBar_outlined);
+
+            if(filled != null) {
+                filledStar = filled;
+            }
+
+            if(outlined != null) {
+                emptyStar = outlined;
+            }
 
             typedArray.recycle();
         }
